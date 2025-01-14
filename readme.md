@@ -10,3 +10,6 @@ https://github.com/PixarAnimationStudios/OpenUSD/tree/262b84a7029c/pxr/imaging/h
 	- Take only the `lib` folder from it.
 - Take `openexr-c.c`, `openexr-c.h`, `OpenEXRCoreUnity.h` from the OpenUSD repository.
 
+### TinyEXR
+
+- Take tinyexr source repository (took post-v1.0.9, release branch 756f7d3, 2025 Jan).
