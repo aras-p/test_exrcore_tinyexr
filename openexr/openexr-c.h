@@ -135,9 +135,6 @@ exr_result_t nanoexr_write_exr(
 
 void nanoexr_release_image_data(nanoexr_ImageData_t* imageData);
 
-bool nanoexr_Gaussian_resample(const nanoexr_ImageData_t* src,
-                               nanoexr_ImageData_t* dst);
-
 #ifdef __cplusplus
 }
 #endif

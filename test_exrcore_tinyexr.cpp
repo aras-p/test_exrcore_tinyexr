@@ -1,5 +1,3 @@
-#include "openexr/openexr-c.h"
-#include "tinyexr/tinyexr.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,6 +26,9 @@ static uint8_t* really_bad_downsample(int src_width, int src_height, int channel
     
     return dst_data;
 }
+
+#ifdef USE_OPENEXR
+#include "openexr/openexr-c.h"
 
 static bool read_openexr(const char *filepath)
 {
@@ -74,6 +75,10 @@ static bool read_openexr(const char *filepath)
     nanoexr_release_image_data(&img);
     return true;
 }
+#endif // USE_OPENEXR
+
+#ifdef USE_TINYEXR
+#include "tinyexr/tinyexr.h"
 
 static bool read_tinyexr(const char *filepath)
 {
@@ -109,6 +114,7 @@ static bool read_tinyexr(const char *filepath)
     free(img);
     return true;
 }
+#endif // USE_TINYEXR
 
 int main(int argc, const char** argv)
 {
@@ -119,8 +125,12 @@ int main(int argc, const char** argv)
     
     for (int i = 1; i < argc; ++i) {
         printf("Reading %s:\n", argv[i]);
+#ifdef USE_OPENEXR
         read_openexr(argv[i]);
+#endif
+#ifdef USE_TINYEXR
         read_tinyexr(argv[i]);
+#endif
     }
 	return 0;
 }

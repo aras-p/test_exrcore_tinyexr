@@ -13,3 +13,9 @@ https://github.com/PixarAnimationStudios/OpenUSD/tree/262b84a7029c/pxr/imaging/h
 ### TinyEXR
 
 - Take tinyexr source repository (took post-v1.0.9, release branch 756f7d3, 2025 Jan).
+
+### Observations
+
+- Mac Release application with both OpenEXR and TinyEXR: 1110928 bytes.
+	- Just OpenEXR: 899024 bytes.
+	- Just TinyEXR: 266160 bytes.
