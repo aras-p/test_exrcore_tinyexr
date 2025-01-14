@@ -7,9 +7,20 @@
 #define OPENEXR_CONF_H
 #pragma once
 
-#include "OpenEXRConfig.h"
-#include <IlmThreadConfig.h>
-#include <ImathConfig.h>
+// LOCAL CHANGE: commented out from upstream
+//#include "OpenEXRConfig.h"
+//#include <IlmThreadConfig.h>
+//#include <ImathConfig.h>
+// LOCAL CHANGE: and added the below
+#define OPENEXR_EXPORT static
+#define EXR_INTERNAL static
+#ifdef IMATH_HALF_SAFE_FOR_C
+#    undef IMATH_HALF_SAFE_FOR_C
+#endif
+#define ILMTHREAD_THREADING_ENABLED
+#define ILMBASE_THREADING_ENABLED
+#define OPENEXR_C_STANDALONE
+// LOCAL CHANGE end
 
 /// \addtogroup ExportMacros
 /// @{

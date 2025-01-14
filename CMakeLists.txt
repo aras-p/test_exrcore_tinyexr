@@ -8,6 +8,17 @@ project ("test_exrcore_tinyexr")
 add_executable (test_exrcore_tinyexr
 	test_exrcore_tinyexr.cpp
 	openexr/openexr-c.c
+	openexr/openexr-c.h
+	tinyexr/tinyexr.cc
+	tinyexr/tinyexr.h
+	tinyexr/miniz/miniz.c
+	tinyexr/miniz/miniz.h
+)
+
+target_include_directories(test_exrcore_tinyexr PRIVATE
+	openexr/libdeflate
+	openexr
+	tinyexr/miniz
 )
 
 set_property(TARGET test_exrcore_tinyexr PROPERTY CXX_STANDARD 17)

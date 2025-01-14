@@ -8,17 +8,17 @@
 
 #include "OpenEXRCore/openexr_config.h"
 
-#include "deflate/lib/lib_common.h"
-#include "deflate/common_defs.h"
-#include "deflate/lib/utils.c"
-#include "deflate/lib/arm/cpu_features.c"
-#include "deflate/lib/x86/cpu_features.c"
-#include "deflate/lib/deflate_compress.c"
+#include "libdeflate/lib/lib_common.h"
+#include "libdeflate/common_defs.h"
+#include "libdeflate/lib/utils.c"
+#include "libdeflate/lib/arm/cpu_features.c"
+#include "libdeflate/lib/x86/cpu_features.c"
+#include "libdeflate/lib/deflate_compress.c"
 #undef BITBUF_NBITS
-#include "deflate/lib/deflate_decompress.c"
-#include "deflate/lib/adler32.c"
-#include "deflate/lib/zlib_compress.c"
-#include "deflate/lib/zlib_decompress.c"
+#include "libdeflate/lib/deflate_decompress.c"
+#include "libdeflate/lib/adler32.c"
+#include "libdeflate/lib/zlib_compress.c"
+#include "libdeflate/lib/zlib_decompress.c"
 
 #include "openexr-c.h"
 
