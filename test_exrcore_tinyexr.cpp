@@ -19,12 +19,14 @@ static uint8_t* really_bad_downsample(int src_width, int src_height, int channel
 {
     const uint8_t* src_data = (const uint8_t*)src;
 
-    const int downsampling = 4;
+    const int downsampling = 2;
     dst_width = src_width / downsampling;
     dst_height = src_height / downsampling;
     
     const size_t pixel_size = (is_half ? 2 : 4) * channels;
     uint8_t* dst_data = (uint8_t*)malloc(dst_width * dst_height * pixel_size);
+    if (dst_data == nullptr)
+        return nullptr;
     
     uint8_t* dst_ptr = dst_data;
     for (int dst_y = 0; dst_y < dst_height; ++dst_y) {
@@ -139,18 +141,44 @@ static bool read_tinyexr(const char *filepath)
 int main(int argc, const char** argv)
 {
     if (argc < 2) {
-        printf("USAGE: test_exrcore_tinyexr <exrfile> ...\n");
+        printf("USAGE: test_exrcore_tinyexr [--openexr] [--tinyexr] <exrfile> ...\n");
         return 1;
     }
+
+    bool do_openexr = false;
+    bool do_tinyexr = false;
+    int arg_index = 1;
+    while (strstr(argv[arg_index], "--") == argv[arg_index]) {
+        if (strcmp(argv[arg_index], "--openexr") == 0)
+            do_openexr = true;
+        if (strcmp(argv[arg_index], "--tinyexr") == 0)
+            do_tinyexr = true;
+        ++arg_index;
+    }
+    if (!do_openexr && !do_tinyexr) {
+        do_openexr = true;
+        do_tinyexr = true;
+    }
     
-    for (int i = 1; i < argc; ++i) {
+    printf("Input files: %i, openexr=%i tinyexr=%i\n", argc-arg_index, do_openexr, do_tinyexr);
+    bool ok = true;
+    clock_t t0 = clock();
+    for (int i = arg_index; i < argc; ++i) {
         printf("Reading %s:\n", argv[i]);
 #ifdef USE_OPENEXR
-        read_openexr(argv[i]);
+        if (do_openexr)
+            ok &= read_openexr(argv[i]);
 #endif
 #ifdef USE_TINYEXR
-        read_tinyexr(argv[i]);
+        if (do_tinyexr)
+            ok &= read_tinyexr(argv[i]);
 #endif
+    }
+    clock_t t1 = clock();
+    printf("Time taken: %.3f sec\n", double(t1-t0) / CLOCKS_PER_SEC);
+    if (!ok) {
+        printf("There were failures!\n");
+        return 1;
     }
 	return 0;
 }

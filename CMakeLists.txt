@@ -72,7 +72,7 @@ if (USE_TINYEXR)
 		tinyexr/miniz/miniz.c
 		tinyexr/miniz/miniz.h
 	)
-	list(APPEND DEFINITIONS USE_TINYEXR)
+	list(APPEND DEFINITIONS USE_TINYEXR TINYEXR_USE_THREAD=1)
 endif ()
 
 add_executable (test_exrcore_tinyexr ${SOURCES})
