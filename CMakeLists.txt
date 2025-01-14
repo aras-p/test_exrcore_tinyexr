@@ -89,6 +89,26 @@ set_property(TARGET test_exrcore_tinyexr PROPERTY MSVC_RUNTIME_LIBRARY "MultiThr
 
 target_compile_definitions(test_exrcore_tinyexr PRIVATE ${DEFINITIONS})
 
+# Enable debug symbols (RelWithDebInfo is not only that; it also turns on
+# incremental linking, disables some inlining, etc. etc.)
+set(CMAKE_XCODE_ATTRIBUTE_DEBUG_INFORMATION_FORMAT "dwarf-with-dsym")
+set(CMAKE_XCODE_ATTRIBUTE_COPY_PHASE_STRIP "NO")
+set(CMAKE_XCODE_ATTRIBUTE_STRIP_INSTALLED_PRODUCT "NO")
+# note: this does not work; have to pass -g instead
+#set(CMAKE_XCODE_ATTRIBUTE_GCC_GENERATE_DEBUGGING_SYMBOLS "YES")
+
+if (CMAKE_BUILD_TYPE STREQUAL "Release")
+	if (MSVC)
+		target_compile_options(test_exrcore_tinyexr PRIVATE /Zi)
+		target_link_options(test_exrcore_tinyexr PRIVATE /DEBUG /OPT:ICF /OPT:REF)
+	endif()
+	if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+		target_compile_options(test_exrcore_tinyexr PRIVATE -g)
+		target_link_options(test_exrcore_tinyexr PRIVATE -g)
+	endif()
+endif ()
+
+
 #if(((CMAKE_CXX_COMPILER_ID MATCHES "Clang") OR (CMAKE_CXX_COMPILER_ID MATCHES "GNU")) AND
 #	((CMAKE_SYSTEM_PROCESSOR STREQUAL "AMD64") OR (CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64")))
 #	target_compile_options(test_exrcore_tinyexr PRIVATE -msse4.2)
