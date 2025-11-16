@@ -2,6 +2,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
+#include <chrono>
+
+inline std::chrono::high_resolution_clock::time_point time_now()
+{
+    return std::chrono::high_resolution_clock::now();
+}
+
+inline float time_duration_ms(std::chrono::high_resolution_clock::time_point t0)
+{
+    std::chrono::duration<float, std::milli> dt = std::chrono::high_resolution_clock::now() - t0;
+    return dt.count();
+}
 
 static uint8_t* really_bad_downsample(int src_width, int src_height, int channels, bool is_half, const void* src, int &dst_width, int &dst_height)
 {
@@ -32,6 +44,7 @@ static uint8_t* really_bad_downsample(int src_width, int src_height, int channel
 
 static bool read_openexr(const char *filepath)
 {
+    auto t0 = time_now();
     nanoexr_ImageData_t img = {};
     exr_result_t res = nanoexr_read_exr(
                                         filepath,
@@ -42,12 +55,13 @@ static bool read_openexr(const char *filepath)
                                         4,
                                         0,
                                         0);
+    float read_ms = time_duration_ms(t0);
     if (res != EXR_ERR_SUCCESS) {
         printf("FAILED to read openexr %s: %i\n", filepath, res);
         return false;
     }
     
-    printf("- open %ix%i data y %i..%i ch %i type %i\n", img.width, img.height, img.dataWindowMinY, img.dataWindowMaxY, img.channelCount, img.pixelType);
+    printf("- open %ix%i %.1fms data y %i..%i ch %i type %i\n", img.width, img.height, read_ms, img.dataWindowMinY, img.dataWindowMaxY, img.channelCount, img.pixelType);
     
     int thumb_width, thumb_height;
     uint8_t *thumb_data = really_bad_downsample(img.width, img.height, img.channelCount, img.pixelType == EXR_PIXEL_HALF, img.data, thumb_width, thumb_height);
@@ -56,6 +70,7 @@ static bool read_openexr(const char *filepath)
     dst_filepath.resize(dst_filepath.size() - 4);
     dst_filepath += "_open.exr";
     
+    t0 = time_now();
     int comp_stride = img.pixelType == EXR_PIXEL_HALF ? 2 : 4;
     int pix_stride = img.channelCount * comp_stride;
     int line_stride = pix_stride * thumb_width;
@@ -66,6 +81,7 @@ static bool read_openexr(const char *filepath)
                             thumb_data + comp_stride * 1, pix_stride, line_stride,
                             thumb_data + comp_stride * 2, pix_stride, line_stride,
                             thumb_data + comp_stride * 3, pix_stride, line_stride);
+    float write_ms = time_duration_ms(t0);
     if (res != EXR_ERR_SUCCESS) {
         printf("FAILED to write openexr %s: %i\n", dst_filepath.c_str(), res);
         return false;
@@ -82,18 +98,20 @@ static bool read_openexr(const char *filepath)
 
 static bool read_tinyexr(const char *filepath)
 {
+    auto t0 = time_now();
     float* img = nullptr;
     int width;
     int height;
     const char* err = nullptr;
     int ret = LoadEXR(&img, &width, &height, filepath, &err);
+    float read_ms = time_duration_ms(t0);
     if (ret != TINYEXR_SUCCESS) {
         printf("FAILED to read tinyexr %s: %s\n", filepath, err);
         FreeEXRErrorMessage(err);
         return false;
     }
     
-    printf("- tiny %ix%i\n", width, height);
+    printf("- tiny %ix%i %.1fms\n", width, height, read_ms);
     
     int thumb_width, thumb_height;
     uint8_t *thumb_data = really_bad_downsample(width, height, 4, false, img, thumb_width, thumb_height);

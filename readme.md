@@ -19,3 +19,10 @@ https://github.com/PixarAnimationStudios/OpenUSD/tree/262b84a7029c/pxr/imaging/h
 - Mac Release application with both OpenEXR and TinyEXR: 1110928 bytes.
 	- Just OpenEXR: 899024 bytes.
 	- Just TinyEXR: 266160 bytes.
+
+Reading images/Blender281junkshop-exr.exr:
+- open 3840x2160 91.0ms data y 0..2160 ch 4 type 1
+- tiny 3840x2160 200.0ms
+Reading images/ph_brown_photostudio_02_8k.exr:
+- open 8192x4096 596.7ms data y 0..4096 ch 4 type 2
+- tiny 8192x4096 1019.4ms
