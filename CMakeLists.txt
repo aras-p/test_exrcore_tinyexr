@@ -32,7 +32,6 @@ endif ()
 add_executable (test_exrcore_tinyexr ${SOURCES})
 
 target_include_directories(test_exrcore_tinyexr PRIVATE
-	openexr/external/deflate
 	openexr
 	tinyexr/miniz
 )

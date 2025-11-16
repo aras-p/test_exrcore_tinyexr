@@ -67,7 +67,8 @@
 #undef ARCH_ARM32
 #undef ARCH_RISCV
 #ifdef _MSC_VER
-#  if defined(_M_X64)
+   /* Way too many things are broken in ARM64EC to pretend that it is x86_64. */
+#  if defined(_M_X64) && !defined(_M_ARM64EC)
 #    define ARCH_X86_64
 #  elif defined(_M_IX86)
 #    define ARCH_X86_32
@@ -308,7 +309,7 @@ typedef size_t machine_word_t;
 #define MAX(a, b)		((a) >= (b) ? (a) : (b))
 #define DIV_ROUND_UP(n, d)	(((n) + (d) - 1) / (d))
 #define STATIC_ASSERT(expr)	((void)sizeof(char[1 - 2 * !(expr)]))
-#define ALIGN(n, a)		(((n) + (a) - 1) & ~((a) - 1))
+#define DEFLATE_ALIGN(n, a)		(((n) + (a) - 1) & ~((a) - 1))
 #define ROUND_UP(n, d)		((d) * DIV_ROUND_UP((n), (d)))
 
 /* ========================================================================== */

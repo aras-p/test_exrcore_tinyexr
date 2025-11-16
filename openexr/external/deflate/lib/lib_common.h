@@ -14,9 +14,9 @@
 #endif
 
 #if defined(LIBDEFLATE_DLL) && (defined(_WIN32) || defined(__CYGWIN__))
-#  define LIBDEFLATE_EXPORT_SYM  __declspec(dllexport)
+#  define LIBDEFLATE_EXPORT_SYM  
 #elif defined(__GNUC__)
-#  define LIBDEFLATE_EXPORT_SYM  __attribute__((visibility("default")))
+#  define LIBDEFLATE_EXPORT_SYM  __attribute__((visibility("hidden")))
 #else
 #  define LIBDEFLATE_EXPORT_SYM
 #endif

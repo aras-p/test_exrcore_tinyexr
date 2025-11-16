@@ -9,6 +9,8 @@
 
 #pragma once
 
+#define OPENEXR_USE_INTERNAL_DEFLATE 1
+
 // Define if we can support GCC style inline asm with AVX instructions
 //#define OPENEXR_IMF_HAVE_GCC_INLINE_ASM_AVX 1
 
