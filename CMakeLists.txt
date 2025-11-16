@@ -16,6 +16,52 @@ if (USE_OPENEXR)
 		openexr/openexr-c.c
 		openexr/openexr-c.h
         openexr/OpenEXRCoreUnity.h
+        
+        openexr/src/lib/OpenEXRCore/internal_ht_common.cpp
+        openexr/src/lib/OpenEXRCore/internal_ht.cpp
+        openexr/external/OpenJPH/src/core/codestream/ojph_codeblock_fun.cpp
+        openexr/external/OpenJPH/src/core/codestream/ojph_codeblock.cpp
+        openexr/external/OpenJPH/src/core/codestream/ojph_codestream_avx.cpp
+        openexr/external/OpenJPH/src/core/codestream/ojph_codestream_avx2.cpp
+        openexr/external/OpenJPH/src/core/codestream/ojph_codestream_gen.cpp
+        openexr/external/OpenJPH/src/core/codestream/ojph_codestream_local.cpp
+        openexr/external/OpenJPH/src/core/codestream/ojph_codestream_sse.cpp
+        openexr/external/OpenJPH/src/core/codestream/ojph_codestream_sse2.cpp
+        #openexr/external/OpenJPH/src/core/codestream/ojph_codestream_wasm.cpp
+        openexr/external/OpenJPH/src/core/codestream/ojph_codestream.cpp
+        openexr/external/OpenJPH/src/core/codestream/ojph_params.cpp
+        openexr/external/OpenJPH/src/core/codestream/ojph_precinct.cpp
+        openexr/external/OpenJPH/src/core/codestream/ojph_resolution.cpp
+        openexr/external/OpenJPH/src/core/codestream/ojph_subband.cpp
+        openexr/external/OpenJPH/src/core/codestream/ojph_tile_comp.cpp
+        openexr/external/OpenJPH/src/core/codestream/ojph_tile.cpp
+        openexr/external/OpenJPH/src/core/coding/ojph_block_common.cpp
+        openexr/external/OpenJPH/src/core/coding/ojph_block_decoder_avx2.cpp
+        openexr/external/OpenJPH/src/core/coding/ojph_block_decoder_ssse3.cpp
+        #openexr/external/OpenJPH/src/core/coding/ojph_block_decoder_wasm.cpp
+        openexr/external/OpenJPH/src/core/coding/ojph_block_decoder32.cpp
+        openexr/external/OpenJPH/src/core/coding/ojph_block_decoder64.cpp
+        openexr/external/OpenJPH/src/core/coding/ojph_block_encoder_avx2.cpp
+        openexr/external/OpenJPH/src/core/coding/ojph_block_encoder_avx512.cpp
+        openexr/external/OpenJPH/src/core/coding/ojph_block_encoder.cpp
+        openexr/external/OpenJPH/src/core/others/ojph_arch.cpp
+        openexr/external/OpenJPH/src/core/others/ojph_file.cpp
+        openexr/external/OpenJPH/src/core/others/ojph_mem.c
+        openexr/external/OpenJPH/src/core/others/ojph_mem.cpp
+        openexr/external/OpenJPH/src/core/others/ojph_message.cpp
+        openexr/external/OpenJPH/src/core/transform/ojph_colour_avx.cpp
+        openexr/external/OpenJPH/src/core/transform/ojph_colour_avx2.cpp
+        openexr/external/OpenJPH/src/core/transform/ojph_colour_sse.cpp
+        openexr/external/OpenJPH/src/core/transform/ojph_colour_sse2.cpp
+        #openexr/external/OpenJPH/src/core/transform/ojph_colour_wasm.cpp
+        openexr/external/OpenJPH/src/core/transform/ojph_colour.cpp
+        openexr/external/OpenJPH/src/core/transform/ojph_transform_avx.cpp
+        openexr/external/OpenJPH/src/core/transform/ojph_transform_avx2.cpp
+        openexr/external/OpenJPH/src/core/transform/ojph_transform_avx512.cpp
+        openexr/external/OpenJPH/src/core/transform/ojph_transform_sse.cpp
+        openexr/external/OpenJPH/src/core/transform/ojph_transform_sse2.cpp
+        #openexr/external/OpenJPH/src/core/transform/ojph_transform_wasm.cpp
+        openexr/external/OpenJPH/src/core/transform/ojph_transform.cpp
 	)
 	list(APPEND DEFINITIONS USE_OPENEXR)
 endif ()
@@ -33,6 +79,7 @@ add_executable (test_exrcore_tinyexr ${SOURCES})
 
 target_include_directories(test_exrcore_tinyexr PRIVATE
 	openexr
+    openexr/external/OpenJPH/src/core/common
 	tinyexr/miniz
 )
 

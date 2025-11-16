@@ -7,12 +7,23 @@
 #include <string>
 #include <fstream>
 
+#include "OpenEXRConfigInternal.h" // LOCAL CHANGE
+
+#if OPENEXR_USE_INTERNAL_OPENJPH // LOCAL CHANGE
+#include "../../../external/OpenJPH/src/core/common/ojph_arch.h"
+#include "../../../external/OpenJPH/src/core/common/ojph_file.h"
+#include "../../../external/OpenJPH/src/core/common/ojph_params.h"
+#include "../../../external/OpenJPH/src/core/common/ojph_mem.h"
+#include "../../../external/OpenJPH/src/core/common/ojph_codestream.h"
+#include "../../../external/OpenJPH/src/core/common/ojph_message.h"
+#else
 #include <openjph/ojph_arch.h>
 #include <openjph/ojph_file.h>
 #include <openjph/ojph_params.h>
 #include <openjph/ojph_mem.h>
 #include <openjph/ojph_codestream.h>
 #include <openjph/ojph_message.h>
+#endif
 
 #include "openexr_decode.h"
 #include "openexr_encode.h"

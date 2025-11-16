@@ -8,6 +8,8 @@ https://github.com/PixarAnimationStudios/OpenUSD/tree/262b84a7029c/pxr/imaging/h
 	- Take only the `src/lib/OpenEXRCore` and `external/deflate` folders from it.
 	- `openexr_config.h` and `compression.c` have local changes! Look for `LOCAL CHANGE` comments.
 	- The new in v3.4 HTJ2K compression is disabled for now.
+- Take OpenJPH (https://github.com/aous72/OpenJPH) source code, used 0.25.3 (2025 Nov),
+	put under `external/OpenJPH`.
 - Take `openexr-c.c`, `openexr-c.h`, `OpenEXRCoreUnity.h` from the OpenUSD repository.
   They were for OpenEXR v3.2, and needed some adaptations for later versions.
 
@@ -76,6 +78,7 @@ Reading images/ph_brown_photostudio_02_8k.exr:
 		- +disable DWA: 336832 bytes.
 		- +disable B44: 319520 bytes.
 		- +disable PXR24: 319344 bytes.
+	- Just OpenEXR with HTJ2K: 678480 bytes. source: 3294203 bytes.
 	- Just TinyEXR: 266256 bytes. source (w/ miniz): 743240 bytes.
 	- None: 52208 bytes.
 
