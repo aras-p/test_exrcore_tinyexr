@@ -10,6 +10,8 @@
 
 #include "openexr-c.h"
 
+#include "OpenEXRConfigInternal.h"
+
 #include "src/lib/OpenEXRCore/attributes.c"
 #include "src/lib/OpenEXRCore/base.c"
 #include "src/lib/OpenEXRCore/bytes.c"
@@ -22,15 +24,21 @@
 #include "src/lib/OpenEXRCore/decoding.c"
 #include "src/lib/OpenEXRCore/encoding.c"
 #include "src/lib/OpenEXRCore/float_vector.c"
+#if OPENEXR_ENABLE_COMPRESSION_B44
 #include "src/lib/OpenEXRCore/internal_b44_table.c"
 #include "src/lib/OpenEXRCore/internal_b44_table_init.c"
 #include "src/lib/OpenEXRCore/internal_b44.c"
+#endif
+#if OPENEXR_ENABLE_COMPRESSION_DWA
 #include "src/lib/OpenEXRCore/internal_dwa.c"
 #include "src/lib/OpenEXRCore/internal_dwa_table.c"
 #include "src/lib/OpenEXRCore/internal_dwa_table_init.c"
+#endif
 #include "src/lib/OpenEXRCore/internal_huf.c"
 #include "src/lib/OpenEXRCore/internal_piz.c"
+#if OPENEXR_ENABLE_COMPRESSION_PXR24
 #include "src/lib/OpenEXRCore/internal_pxr24.c"
+#endif
 #include "src/lib/OpenEXRCore/internal_rle.c"
 #include "src/lib/OpenEXRCore/internal_structs.c"
 #include "src/lib/OpenEXRCore/internal_zip.c"

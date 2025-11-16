@@ -72,7 +72,10 @@ Reading images/ph_brown_photostudio_02_8k.exr:
 **OpenEXR post-3.4.3 (2025 Nov 14, 90b6738) with disabled HTJ2K; vendored libdeflate (1.23 -> 1.24), tinyexr v1.0.12 (2025 Mar)**
 
 - Mac Release application with both OpenEXR and TinyEXR: 583104 bytes.
-	- Just OpenEXR: 371616 bytes. source (w/ deflate): 1757350 bytes.
+	- Just OpenEXR: 371328 bytes. source (w/ deflate): 1757350 bytes.
+		- +disable DWA: 336832 bytes.
+		- +disable B44: 319520 bytes.
+		- +disable PXR24: 319344 bytes.
 	- Just TinyEXR: 266256 bytes. source (w/ miniz): 743240 bytes.
 	- None: 52208 bytes.
 

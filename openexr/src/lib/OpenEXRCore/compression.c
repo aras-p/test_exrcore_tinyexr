@@ -371,17 +371,24 @@ exr_compress_chunk (exr_encode_pipeline_t* encode)
         case EXR_COMPRESSION_ZIP:
         case EXR_COMPRESSION_ZIPS: rv = internal_exr_apply_zip (encode); break;
         case EXR_COMPRESSION_PIZ: rv = internal_exr_apply_piz (encode); break;
+        #if OPENEXR_ENABLE_COMPRESSION_PXR24 // LOCAL CHANGE: macro to disable PXR24
         case EXR_COMPRESSION_PXR24:
             rv = internal_exr_apply_pxr24 (encode);
             break;
+        #endif
+        #if OPENEXR_ENABLE_COMPRESSION_B44 // LOCAL CHANGE: macro to disable B44
         case EXR_COMPRESSION_B44: rv = internal_exr_apply_b44 (encode); break;
         case EXR_COMPRESSION_B44A: rv = internal_exr_apply_b44a (encode); break;
+        #endif
+        #if OPENEXR_ENABLE_COMPRESSION_DWA // LOCAL CHANGE: macro to disable DWA
         case EXR_COMPRESSION_DWAA: rv = internal_exr_apply_dwaa (encode); break;
         case EXR_COMPRESSION_DWAB: rv = internal_exr_apply_dwab (encode); break;
-        // LOCAL CHANGE: disabled HTJ2K codec for now
-        //case EXR_COMPRESSION_HTJ2K32:
-        //case EXR_COMPRESSION_HTJ2K256:
-        //    rv = internal_exr_apply_ht (encode); break;
+        #endif
+        #if OPENEXR_ENABLE_COMPRESSION_HTJ2K // LOCAL CHANGE: macro to disable HTJ2K
+        case EXR_COMPRESSION_HTJ2K32:
+        case EXR_COMPRESSION_HTJ2K256:
+            rv = internal_exr_apply_ht (encode); break;
+        #endif
         case EXR_COMPRESSION_LAST_TYPE:
         default:
             return ctxt->print_error (
@@ -438,10 +445,13 @@ decompress_data (
             rv = internal_exr_undo_piz (
                 decode, packbufptr, packsz, unpackbufptr, unpacksz);
             break;
+        #if OPENEXR_ENABLE_COMPRESSION_PXR24 // LOCAL CHANGE: macro to disable PXR24
         case EXR_COMPRESSION_PXR24:
             rv = internal_exr_undo_pxr24 (
                 decode, packbufptr, packsz, unpackbufptr, unpacksz);
             break;
+        #endif
+        #if OPENEXR_ENABLE_COMPRESSION_B44 // LOCAL CHANGE: macro to disable B44
         case EXR_COMPRESSION_B44:
             rv = internal_exr_undo_b44 (
                 decode, packbufptr, packsz, unpackbufptr, unpacksz);
@@ -450,6 +460,8 @@ decompress_data (
             rv = internal_exr_undo_b44a (
                 decode, packbufptr, packsz, unpackbufptr, unpacksz);
             break;
+        #endif
+        #if OPENEXR_ENABLE_COMPRESSION_DWA // LOCAL CHANGE: macro to disable DWA
         case EXR_COMPRESSION_DWAA:
             rv = internal_exr_undo_dwaa (
                 decode, packbufptr, packsz, unpackbufptr, unpacksz);
@@ -458,12 +470,14 @@ decompress_data (
             rv = internal_exr_undo_dwab (
                 decode, packbufptr, packsz, unpackbufptr, unpacksz);
             break;
-        // LOCAL CHANGE: disabled HTJ2K codec for now
-        //case EXR_COMPRESSION_HTJ2K256:
-        //case EXR_COMPRESSION_HTJ2K32:
-        //    rv = internal_exr_undo_ht (
-        //        decode, packbufptr, packsz, unpackbufptr, unpacksz);
-        //    break;
+        #endif
+        #if OPENEXR_ENABLE_COMPRESSION_HTJ2K // LOCAL CHANGE: macro to disable HTJ2K
+        case EXR_COMPRESSION_HTJ2K256:
+        case EXR_COMPRESSION_HTJ2K32:
+            rv = internal_exr_undo_ht (
+                decode, packbufptr, packsz, unpackbufptr, unpacksz);
+            break;
+        #endif
         case EXR_COMPRESSION_LAST_TYPE:
         default:
             return ctxt->print_error (

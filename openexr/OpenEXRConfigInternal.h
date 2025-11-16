@@ -11,6 +11,12 @@
 
 #define OPENEXR_USE_INTERNAL_DEFLATE 1
 
+// LOCAL CHANGE: macros to disable certain codecs
+#define OPENEXR_ENABLE_COMPRESSION_HTJ2K 0
+#define OPENEXR_ENABLE_COMPRESSION_DWA 1
+#define OPENEXR_ENABLE_COMPRESSION_B44 1
+#define OPENEXR_ENABLE_COMPRESSION_PXR24 1
+
 // Define if we can support GCC style inline asm with AVX instructions
 //#define OPENEXR_IMF_HAVE_GCC_INLINE_ASM_AVX 1
 
