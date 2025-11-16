@@ -15,11 +15,11 @@
 #ifndef openexr_c_h
 #define openexr_c_h
 
-#include "OpenEXRCore/openexr.h"
+#include "src/lib/OpenEXRCore/openexr.h"
 
-#include "OpenEXRCore/openexr_attr.h"
-#include "OpenEXRCore/openexr_context.h"
-#include "OpenEXRCore/openexr_part.h"
+#include "src/lib/OpenEXRCore/openexr_attr.h"
+#include "src/lib/OpenEXRCore/openexr_context.h"
+#include "src/lib/OpenEXRCore/openexr_part.h"
 #include <stdbool.h>
 #include <stdint.h>
 
