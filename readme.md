@@ -4,9 +4,10 @@
 Inspiration in how to use it is from OpenUSD:
 https://github.com/PixarAnimationStudios/OpenUSD/tree/262b84a7029c/pxr/imaging/hio/OpenEXR
 
-- Take OpenEXR source repository (took v3.3.5, 2025 Jul),
+- Take OpenEXR source repository (took v3.4.3, 2025 Nov),
 	- Take only the `src/lib/OpenEXRCore` folder from it.
-	- `openexr_config.h` has local changes!
+	- `openexr_config.h` and `compression.c` have local changes! Look for `LOCAL CHANGE` comments.
+	- The new in v3.4 HTJ2K compression is disabled for now.
 - Take libdeflate source repository (took v1.23, 78051988f9, 2024 Dec),
 	- Take only the `lib` folder from it.
 - Take `openexr-c.c`, `openexr-c.h`, `OpenEXRCoreUnity.h` from the OpenUSD repository.
@@ -48,5 +49,21 @@ Reading images/Blender281junkshop-exr.exr:
 - tiny 3840x2160 198.6.0ms
 Reading images/ph_brown_photostudio_02_8k.exr:
 - open 8192x4096 581.9ms data y 0..4096 ch 4 type 2
+- tiny 8192x4096 1011.5ms
+```
+
+**OpenEXR 3.4.3 (2025 Nov) with disabled HTJ2K, tinyexr v1.0.12 (2025 Mar)**
+
+- Mac Release application with both OpenEXR and TinyEXR: 1111232 bytes.
+	- Just OpenEXR: 899424 bytes. source (w/ deflate): 3965260 bytes.
+	- Just TinyEXR: 266256 bytes. source (w/ miniz): 743240 bytes.
+	- None: 52208 bytes.
+
+```
+Reading images/Blender281junkshop-exr.exr:
+- open 3840x2160 90.9ms data y 0..2160 ch 4 type 1
+- tiny 3840x2160 198.6.0ms
+Reading images/ph_brown_photostudio_02_8k.exr:
+- open 8192x4096 589.7ms data y 0..4096 ch 4 type 2
 - tiny 8192x4096 1011.5ms
 ```

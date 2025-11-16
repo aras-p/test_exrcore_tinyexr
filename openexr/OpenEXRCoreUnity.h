@@ -24,6 +24,7 @@
 
 #include "OpenEXRCore/attributes.c"
 #include "OpenEXRCore/base.c"
+#include "OpenEXRCore/bytes.c"
 #include "OpenEXRCore/channel_list.c"
 #include "OpenEXRCore/chunk.c"
 #include "OpenEXRCore/coding.c"

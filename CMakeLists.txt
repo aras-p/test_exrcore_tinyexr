@@ -15,6 +15,7 @@ if (USE_OPENEXR)
 	list(APPEND SOURCES
 		openexr/openexr-c.c
 		openexr/openexr-c.h
+        openexr/OpenEXRCoreUnity.h
 	)
 	list(APPEND DEFINITIONS USE_OPENEXR)
 endif ()
