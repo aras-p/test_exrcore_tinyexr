@@ -5,6 +5,9 @@
 // https://openusd.org/license.
 //
 
+// LOCAL CHANGES:
+// - commented out all fprintf to stderr calls
+
 #include "OpenEXRCoreUnity.h"
 
 #include <ctype.h>
@@ -67,7 +70,7 @@ const char* nanoexr_get_error_code_as_string (exr_result_t code)
 static void
 err_cb (exr_const_context_t f, int code, const char* msg)
 {
-    fprintf(stderr, "err_cb ERROR %d: %s\n", code, msg);
+    //fprintf(stderr, "err_cb ERROR %d: %s\n", code, msg);
 }
 
 void nanoexr_set_defaults(const char* filename, nanoexr_Reader_t* reader) {
@@ -495,7 +498,7 @@ static void nanoexr_cleanup(exr_context_t exr,
 static void
 tiled_exr_err_cb (exr_const_context_t f, int code, const char* msg)
 {
-    fprintf(stderr, "err_cb ERROR %d: %s\n", code, msg);
+    //fprintf(stderr, "err_cb ERROR %d: %s\n", code, msg);
 }
 
 static exr_result_t _nanoexr_rgba_decoding_initialize(
@@ -508,8 +511,8 @@ static exr_result_t _nanoexr_rgba_decoding_initialize(
     exr_result_t rv = EXR_ERR_SUCCESS;
     rv = exr_decoding_initialize(exr, partIndex, cinfo, decoder);
     if (rv != EXR_ERR_SUCCESS) {
-        fprintf(stderr, "exr_decoding_initialize failed: %s\n", 
-                exr_get_default_error_message(rv));
+        //fprintf(stderr, "exr_decoding_initialize failed: %s\n",
+        //        exr_get_default_error_message(rv));
         return rv;
     }
     int bytesPerChannel = nanoexr_getPixelTypeSize(img->pixelType);
@@ -628,8 +631,8 @@ exr_result_t nanoexr_read_tiled_exr(exr_context_t exr,
         }
     } while(false);
     
-    if (rv != EXR_ERR_SUCCESS)
-        fprintf(stderr, "nanoexr error: %s\n", exr_get_default_error_message(rv));
+    //if (rv != EXR_ERR_SUCCESS)
+    //    fprintf(stderr, "nanoexr error: %s\n", exr_get_default_error_message(rv));
 
     nanoexr_cleanup(exr, &decoder);
     return rv;
@@ -708,8 +711,8 @@ exr_result_t nanoexr_read_scanline_exr(exr_context_t exr,
     }
     while (false);
     
-    if (rv != EXR_ERR_SUCCESS)
-        fprintf(stderr, "nanoexr error: %s\n", exr_get_default_error_message(rv));
+    //if (rv != EXR_ERR_SUCCESS)
+    //    fprintf(stderr, "nanoexr error: %s\n", exr_get_default_error_message(rv));
 
     nanoexr_cleanup(exr, &decoder);
     return rv;
@@ -811,23 +814,23 @@ exr_result_t nanoexr_read_exr(const char* filename,
     cinit.user_data = callback_userData;
     rv = exr_test_file_header(filename, &cinit);
     if (rv != EXR_ERR_SUCCESS) {
-        fprintf(stderr, "nanoexr header error: %s\n",
-                exr_get_default_error_message(rv));
+        //fprintf(stderr, "nanoexr header error: %s\n",
+        //        exr_get_default_error_message(rv));
         return rv;
     }
 
     rv = exr_start_read(&exr, filename, &cinit);
     if (rv != EXR_ERR_SUCCESS) {
-        fprintf(stderr, "nanoexr start error: %s\n",
-                exr_get_default_error_message(rv));
+        //fprintf(stderr, "nanoexr start error: %s\n",
+        //        exr_get_default_error_message(rv));
         exr_finish(&exr);
         return rv;
     }
     exr_storage_t storage;
     rv = exr_get_storage(exr, partIndex, &storage);
     if (rv != EXR_ERR_SUCCESS) {
-        fprintf(stderr, "nanoexr storage error: %s\n",
-                exr_get_default_error_message(rv));
+        //fprintf(stderr, "nanoexr storage error: %s\n",
+        //        exr_get_default_error_message(rv));
         exr_finish(&exr);
         return rv;
     }
@@ -835,7 +838,7 @@ exr_result_t nanoexr_read_exr(const char* filename,
     int num_sub_images = 0;
     rv = exr_get_count(exr, &num_sub_images);
     if (rv != EXR_ERR_SUCCESS || partIndex >= num_sub_images) {
-        fprintf(stderr, "nanoexr error: part index %d out of range\n", partIndex);
+        //fprintf(stderr, "nanoexr error: part index %d out of range\n", partIndex);
         exr_finish(&exr);
         return rv;
     }
@@ -844,8 +847,8 @@ exr_result_t nanoexr_read_exr(const char* filename,
     exr_compression_t compression;
     rv = exr_get_compression(exr, partIndex, &compression);
     if (rv != EXR_ERR_SUCCESS) {
-        fprintf(stderr, "nanoexr compression error: %s\n",
-                exr_get_default_error_message(rv));
+        //fprintf(stderr, "nanoexr compression error: %s\n",
+        //        exr_get_default_error_message(rv));
         exr_finish(&exr);
         return rv;
     }
@@ -854,15 +857,15 @@ exr_result_t nanoexr_read_exr(const char* filename,
     exr_attr_box2i_t displaywin;
     rv = exr_get_data_window(exr, partIndex, &datawin);
     if (rv != EXR_ERR_SUCCESS) {
-        fprintf(stderr, "nanoexr data window error: %s\n",
-                exr_get_default_error_message(rv));
+        //fprintf(stderr, "nanoexr data window error: %s\n",
+        //        exr_get_default_error_message(rv));
         exr_finish(&exr);
         return rv;
     }
     rv = exr_get_display_window(exr, partIndex, &displaywin);
     if (rv != EXR_ERR_SUCCESS) {
-        fprintf(stderr, "nanoexr display window error: %s\n",
-                exr_get_default_error_message(rv));
+        //fprintf(stderr, "nanoexr display window error: %s\n",
+        //        exr_get_default_error_message(rv));
         exr_finish(&exr);
         return rv;
     }
@@ -873,8 +876,8 @@ exr_result_t nanoexr_read_exr(const char* filename,
     const exr_attr_chlist_t* chlist = NULL;
     rv = exr_get_channels(exr, partIndex, &chlist);
     if (rv != EXR_ERR_SUCCESS) {
-        fprintf(stderr, "nanoexr channels error: %s\n",
-                exr_get_default_error_message(rv));
+        //fprintf(stderr, "nanoexr channels error: %s\n",
+        //        exr_get_default_error_message(rv));
         exr_finish(&exr);
         return rv;
     }
@@ -882,7 +885,7 @@ exr_result_t nanoexr_read_exr(const char* filename,
     exr_pixel_type_t pixelType = chlist->entries[0].pixel_type;
     int bytesPerChannel = nanoexr_getPixelTypeSize(pixelType);
     if (bytesPerChannel == 0) {
-        fprintf(stderr, "nanoexr error: unsupported pixel type\n");
+        //fprintf(stderr, "nanoexr error: unsupported pixel type\n");
         exr_finish(&exr);
         return rv;
     }
@@ -898,7 +901,7 @@ exr_result_t nanoexr_read_exr(const char* filename,
     img->dataWindowMaxY = (datawin.max.y+1) >> mipLevel;
     img->data = (unsigned char*) malloc(img->dataSize);
     if (img->data == NULL) {
-        fprintf(stderr, "nanoexr error: could not allocate memory for image data\n");
+        //fprintf(stderr, "nanoexr error: could not allocate memory for image data\n");
         exr_finish(&exr);
         return rv;
     }
@@ -914,7 +917,7 @@ exr_result_t nanoexr_read_exr(const char* filename,
     }
     
     if (rv != EXR_ERR_SUCCESS) {
-        fprintf(stderr, "nanoexr: failed to read image\n");
+        //fprintf(stderr, "nanoexr: failed to read image\n");
         free(img->data);
         img->data = NULL;
         return rv;
@@ -1016,8 +1019,13 @@ exr_result_t nanoexr_read_exr(const char* filename,
     
     rv = exr_finish(&exr);
     if (rv != EXR_ERR_SUCCESS) {
-        fprintf(stderr, "nanoexr finish error: %s\n", 
-                exr_get_default_error_message(rv));
+        //fprintf(stderr, "nanoexr finish error: %s\n",
+        //        exr_get_default_error_message(rv));
     }
     return rv;
+}
+
+const char* nanoexr_get_default_error_message(exr_result_t code)
+{
+    return exr_get_default_error_message(code);
 }

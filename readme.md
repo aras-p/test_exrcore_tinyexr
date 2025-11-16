@@ -19,6 +19,8 @@ https://github.com/PixarAnimationStudios/OpenUSD/tree/262b84a7029c/pxr/imaging/h
 
 Xcode 16.1.
 
+tinyexr can't do: B44, DWAA, HTJ2K, PXR24 compression modes.
+
 **OpenEXR 3.2.4 (2024 Mar)**
 
 - Mac Release application with both OpenEXR and TinyEXR: 2547280 bytes.

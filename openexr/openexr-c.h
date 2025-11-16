@@ -135,6 +135,8 @@ exr_result_t nanoexr_write_exr(
 
 void nanoexr_release_image_data(nanoexr_ImageData_t* imageData);
 
+const char* nanoexr_get_default_error_message(exr_result_t code);
+
 #ifdef __cplusplus
 }
 #endif

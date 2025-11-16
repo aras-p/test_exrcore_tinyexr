@@ -44,6 +44,7 @@ static uint8_t* really_bad_downsample(int src_width, int src_height, int channel
 
 static bool read_openexr(const char *filepath)
 {
+    printf("- open ");
     auto t0 = time_now();
     nanoexr_ImageData_t img = {};
     exr_result_t res = nanoexr_read_exr(
@@ -57,11 +58,11 @@ static bool read_openexr(const char *filepath)
                                         0);
     float read_ms = time_duration_ms(t0);
     if (res != EXR_ERR_SUCCESS) {
-        printf("FAILED to read openexr %s: %i\n", filepath, res);
+        printf("FAILED %s (#%i)\n", nanoexr_get_default_error_message(res), res);
         return false;
     }
     
-    printf("- open %ix%i %.1fms data y %i..%i ch %i type %i\n", img.width, img.height, read_ms, img.dataWindowMinY, img.dataWindowMaxY, img.channelCount, img.pixelType);
+    printf("%ix%i %.1fms data y %i..%i ch %i type %i\n", img.width, img.height, read_ms, img.dataWindowMinY, img.dataWindowMaxY, img.channelCount, img.pixelType);
     
     int thumb_width, thumb_height;
     uint8_t *thumb_data = really_bad_downsample(img.width, img.height, img.channelCount, img.pixelType == EXR_PIXEL_HALF, img.data, thumb_width, thumb_height);
@@ -98,6 +99,7 @@ static bool read_openexr(const char *filepath)
 
 static bool read_tinyexr(const char *filepath)
 {
+    printf("- tiny ");
     auto t0 = time_now();
     float* img = nullptr;
     int width;
@@ -106,12 +108,12 @@ static bool read_tinyexr(const char *filepath)
     int ret = LoadEXR(&img, &width, &height, filepath, &err);
     float read_ms = time_duration_ms(t0);
     if (ret != TINYEXR_SUCCESS) {
-        printf("FAILED to read tinyexr %s: %s\n", filepath, err);
+        printf("FAILED %s\n", err);
         FreeEXRErrorMessage(err);
         return false;
     }
     
-    printf("- tiny %ix%i %.1fms\n", width, height, read_ms);
+    printf("%ix%i %.1fms\n", width, height, read_ms);
     
     int thumb_width, thumb_height;
     uint8_t *thumb_data = really_bad_downsample(width, height, 4, false, img, thumb_width, thumb_height);
