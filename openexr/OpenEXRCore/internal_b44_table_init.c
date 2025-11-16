@@ -3,7 +3,10 @@
 // Copyright (c) DreamWorks Animation LLC and Contributors of the OpenEXR Project
 //
 
-#include <half.h>
+// LOCAL CHANGE
+//#include <half.h>
+#include "internal_coding.h"
+
 #include <stdint.h>
 
 #include "internal_thread.h"
@@ -21,9 +24,9 @@ b44_convertFromLinear (uint16_t x)
     if (x >= 0x558c && x < 0x8000) // >= 8 * log (HALF_MAX)
         return 0x7bff;             // HALF_MAX
 
-    float f = imath_half_to_float (x);
+    float f = half_to_float (x);
     f       = expf (f / 8);
-    return imath_float_to_half (f);
+    return float_to_half (f);
 }
 
 static inline uint16_t
@@ -34,9 +37,9 @@ b44_convertToLinear (uint16_t x)
     if (x > 0x8000) // negative? (excluding -0.0 which is accepted)
         return 0;
 
-    float f = imath_half_to_float (x);
+    float f = half_to_float (x);
     f       = 8 * logf (f);
-    return imath_float_to_half (f);
+    return float_to_half (f);
 }
 
 
