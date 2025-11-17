@@ -3,12 +3,9 @@
 // Copyright (c) DreamWorks Animation LLC and Contributors of the OpenEXR Project
 //
 
-// LOCAL CHANGE
-//#include <half.h>
-#include "internal_coding.h"
-
 #include <stdint.h>
 
+#include "internal_coding.h"
 #include "internal_thread.h"
 
 extern uint16_t* exrcore_expTable;

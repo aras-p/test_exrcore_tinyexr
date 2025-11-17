@@ -4,10 +4,10 @@
 Inspiration in how to use it is from OpenUSD:
 https://github.com/PixarAnimationStudios/OpenUSD/tree/262b84a7029c/pxr/imaging/hio/OpenEXR
 
-- Take OpenEXR source repository (took post-v3.4.3, 2025 Nov 14, 90b6738),
+- Take OpenEXR source repository (took post-v3.4.3, 2025 Nov 17, 59289eb),
 	- Take only the `src/lib/OpenEXRCore` and `external/deflate` folders from it.
-	- `openexr_config.h` and `compression.c` have local changes! Look for `LOCAL CHANGE` comments.
-	- The new in v3.4 HTJ2K compression is disabled for now.
+	- `openexr_config.h`, `compression.c`, `internal_ht.cpp` have local changes!
+	  Look for `LOCAL CHANGE` comments.
 - Take OpenJPH (https://github.com/aous72/OpenJPH) source code, used 0.25.3 (2025 Nov),
 	put under `external/OpenJPH`.
 - Take `openexr-c.c`, `openexr-c.h`, `OpenEXRCoreUnity.h` from the OpenUSD repository.
@@ -71,7 +71,7 @@ Reading images/ph_brown_photostudio_02_8k.exr:
 - tiny 8192x4096 1011.5ms
 ```
 
-**OpenEXR post-3.4.3 (2025 Nov 14, 90b6738) with disabled HTJ2K; vendored libdeflate (1.23 -> 1.24), tinyexr v1.0.12 (2025 Mar)**
+**OpenEXR post-3.4.3 (2025 Nov 17, 59289eb) with disabled HTJ2K; vendored libdeflate (1.23 -> 1.24), tinyexr v1.0.12 (2025 Mar)**
 
 - Mac Release application with both OpenEXR and TinyEXR: 583104 bytes.
 	- Just OpenEXR: 371328 bytes. source (w/ deflate): 1757350 bytes.
