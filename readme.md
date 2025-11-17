@@ -77,11 +77,11 @@ Reading images/ph_brown_photostudio_02_8k.exr:
 |OpenEXR 3.2.4        | 2281 | 8556 |  889 | |
 |OpenEXR 3.3.5        |  878 | 3831 |  582 | Removed giant DWAA/DWAB lookup tables. |
 |OpenEXR 3.4.3        | 1178 | 5373 |  587 | Added HTJ2K compression (via OpenJPH). |
-|OpenEXR post-3.4.3   |  662 | 3216 |  585 | Removed more B44/DWA lookup tables. |
-|without HTJ2K        |  363 | 1716 |      | Above, with HTJ2K/OpenJPH compiled out. |
-|+without DWA         |  329 |      |      | Above, and with DWAA/DWAB compiled out. |
-|+without B44         |  312 |      |      | Above, and with B44/B44A compiled out. |
-|+without PXR24       |  312 |      |      | Above, and with PXR24 compiled out. |
+|OpenEXR 3.4.4        |  662 | 3216 |  585 | Removed more B44/DWA lookup tables. |
+| + no HTJ2K          |  363 | 1716 |      | Above, with HTJ2K/OpenJPH compiled out. |
+| + no DWA            |  329 |      |      | Above, and with DWAA/DWAB compiled out. |
+| + no B44            |  312 |      |      | Above, and with B44/B44A compiled out. |
+| + no PXR24          |  312 |      |      | Above, and with PXR24 compiled out. |
 
 
 **OpenEXR post-3.4.3 (2025 Nov 17, 59289eb) with disabled HTJ2K; vendored libdeflate (1.23 -> 1.24), tinyexr v1.0.12 (2025 Mar)**
