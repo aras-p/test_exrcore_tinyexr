@@ -72,8 +72,3 @@ Notes:
 - Tinyexr is smaller, but not _that much_ smaller than OpenEXR. And, again, it does not
   understand some of the compression modes (PXR24, B44, DWA, HTJ2K) and thus can't load
   some EXR files. Also seems to be about 2x slower than OpenEXR library.
-
-Reading images/ph_brown_photostudio_02_8k.exr:
-- open 8192x4096 585.3ms data y 0..4096 ch 4 type 2
-- tiny 8192x4096 1011.5ms
-```
