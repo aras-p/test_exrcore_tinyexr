@@ -1,4 +1,38 @@
-### OpenEXR
+## How tiny is tinyexr, and how big is OpenEXR?
+
+[tinyexr](TODO LINK) is an excellent simple library for loading and saving OpenEXR
+files. It has one big advantage, in that it is _very_ simple to start using: just one
+source file to compile and include! However, it also has some downsides, namely that
+not all features of OpenEXR are supported (for example, it can't do PXR24, B44/B44A,
+DWAA/DWAB, HTJ2K compression modes), and performance might be behind the official
+library. It probably can't do some of more exotic EXR features either (e.g. "deep" images),
+but I'll ignore those for now.
+
+But how _large_ and how _complex to use_ is the "official" OpenEXR library, anyways?
+
+I do remember that a decade ago it was quite painful to build it, especially on anything
+that is not Linux. However these days (2025), that seems to be much simpler: it
+uses a CMake build system, and either directly vendors or automatically fetches whatever
+dependencies it needs, unless you really ask it to "please don't do this".
+
+It is not exactly a "one source file" library though. However, I noticed that OpenUSD
+vendors OpenEXR "Core" library, builds it as a single C source file, and uses their
+own "nanoexr" wrapper around the API; see
+[OpenUSD/pxr/imaging/hio/OpenEXR](https://github.com/PixarAnimationStudios/OpenUSD/tree/262b84a7029c/pxr/imaging/hio/OpenEXR).
+So I took that, adapted it to more recent OpenEXR versions (theirs uses 3.2.x, I updated to 3.4.4).
+
+And then I wrote a tiny app that reads an EXR file, and writes it back as downsampled EXR
+(so this includes both reading & writing parts of an EXR library). And compared how large
+is the binary size between `tinyexr` and `OpenEXR`, as well as their respective
+source code sizes and EXR read performance.
+
+Notes:
+- This compares both tinyexr and OpenEXR in fully single-threaded mode. Tinyexr has threading
+  capabilities, but it spins up and shuts down a whole thread pool for each processed image,
+  which is a bit "meh"; and while OpenEXRCore can be threaded (and using full high level
+  OpenEXR library does use it that way), the "nanoexr" wrapper I took from USD codebase
+  does not do any threading.
+- Hardware is Apple M4 Max, compiler Xcode 16.1, Release build.
 
 
 Inspiration in how to use it is from OpenUSD:
@@ -12,6 +46,7 @@ https://github.com/PixarAnimationStudios/OpenUSD/tree/262b84a7029c/pxr/imaging/h
 	put under `external/OpenJPH`.
 - Take `openexr-c.c`, `openexr-c.h`, `OpenEXRCoreUnity.h` from the OpenUSD repository.
   They were for OpenEXR v3.2, and needed some adaptations for later versions.
+
 
 ### TinyEXR
 
