@@ -54,12 +54,15 @@ Actual process was:
 
 
 Notes:
+- Hardware is Windows, Ryzen 5950X, compiler Visual Studio 2022 (17.14), Release build.
 - This compares both tinyexr and OpenEXR in fully single-threaded mode. Tinyexr has threading
   capabilities, but it spins up and shuts down a whole thread pool for each processed image,
   which is a bit "meh"; and while OpenEXRCore can be threaded (and using full high level
   OpenEXR library does use it that way), the "nanoexr" wrapper I took from USD codebase
   does not do any threading.
-- Hardware is Windows, Ryzen 5950X, compiler Visual Studio 2022 (17.14), Release build.
+- Timing is total time taken to read, downsample (by 2x) and write back 6 EXR files,
+  input resolution 3840x2160, input files are ZIP FP16, ZIP FP32, ZIP w/ mips, ZIP tiled,
+  PIZ and RLE compressed; output is ZIP compressed.
 
 ## Takeaways
 
