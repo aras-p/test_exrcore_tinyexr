@@ -1,5 +1,7 @@
 ## How tiny is tinyexr, and how big is OpenEXR?
 
+Blog post about all of this: **https://aras-p.info/blog/2025/11/22/OpenEXR-vs-tinyexr/**
+
 [tinyexr](https://github.com/syoyo/tinyexr) is an excellent simple library for loading and saving OpenEXR
 files. It has one big advantage, in that it is _very_ simple to start using: just one
 source file to compile and include! However, it also has some downsides, namely that
