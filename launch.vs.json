@@ -9,19 +9,19 @@
       "name": "test_exrcore_tinyexr.exe",
       "currentDir": "${workspaceRoot}",
       "args": [
-        //"--openexr",
-        "--tinyexr",
-        //"junkshop-b44.exr",
-        //"junkshop-deep.exr",
-        //"junkshop-dwaa.exr",
-        //"junkshop-dwaa-mips.exr",
-        "junkshop-piz.exr",
-        //"junkshop-pxr24.exr",
-        "junkshop-rle.exr",
-        "junkshop-zip.exr",
-        "junkshop-zip-f32.exr",
-        "junkshop-zip-mips.exr",
-        "junkshop-zip-tile64.exr"
+        "--openexr",
+        //"--tinyexr",
+        //"images/junkshop-b44.exr",
+        //"images/junkshop-deep.exr",
+        //"images/junkshop-dwaa.exr",
+        //"images/junkshop-dwaa-mips.exr",
+        "images/junkshop-piz.exr",
+        //"images/junkshop-pxr24.exr",
+        "images/junkshop-rle.exr",
+        "images/junkshop-zip.exr",
+        "images/junkshop-zip-f32.exr",
+        "images/junkshop-zip-mips.exr",
+        "images/junkshop-zip-tile64.exr"
       ]
     }
   ]

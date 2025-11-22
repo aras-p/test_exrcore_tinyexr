@@ -40,17 +40,18 @@ Actual process was:
 
 ## Results
 
-| Library | Binary size, KB | Source size, KB | EXR (ZIP) read time, ms | Notes |
+| Library | Binary size, KB | Source size, KB | read+write time, s | Notes |
 |----|---:|---:|---:|---|
-|tinyexr 1.0.12       |  260 |  726 | 1008 | |
-|OpenEXR 3.2.4        | 2281 | 8556 |  889 | |
-|OpenEXR 3.3.5        |  878 | 3831 |  582 | Removed giant DWAA/DWAB lookup tables. |
-|OpenEXR 3.4.3        | 1178 | 5373 |  587 | Added HTJ2K compression (via OpenJPH). |
-|OpenEXR 3.4.4        |  662 | 3216 |  585 | Removed more B44/DWA lookup tables. |
-| + no HTJ2K          |  363 | 1716 |      | Above, with HTJ2K/OpenJPH compiled out. |
-| + no DWA            |  329 |      |      | Above, and with DWAA/DWAB compiled out. |
-| + no B44            |  312 |      |      | Above, and with B44/B44A compiled out. |
-| + no PXR24          |  312 |      |      | Above, and with PXR24 compiled out. |
+|tinyexr 1.0.12       |  251 |  726 | 6.55 | |
+|OpenEXR 3.2.4        | 2221 | 8556 | 2.19 | |
+|OpenEXR 3.3.5        |  826 | 3831 | 1.68 | Removed giant DWAA/DWAB lookup tables. |
+|OpenEXR 3.4.3        | 1149 | 5373 | 1.68 | Added HTJ2K compression (via OpenJPH). |
+|OpenEXR 3.4.4        |  649 | 3216 | 1.65 | Removed more B44/DWA lookup tables. |
+| + no HTJ2K          |  370 | 1716 |      | Above, with HTJ2K/OpenJPH compiled out. |
+| + no DWA            |  318 |      |      | Above, and with DWAA/DWAB compiled out. |
+| + no B44            |  305 |      |      | Above, and with B44/B44A compiled out. |
+| + no PXR24          |  303 |      |      | Above, and with PXR24 compiled out. |
+
 
 Notes:
 - This compares both tinyexr and OpenEXR in fully single-threaded mode. Tinyexr has threading
@@ -58,7 +59,7 @@ Notes:
   which is a bit "meh"; and while OpenEXRCore can be threaded (and using full high level
   OpenEXR library does use it that way), the "nanoexr" wrapper I took from USD codebase
   does not do any threading.
-- Hardware is Apple M4 Max, compiler Xcode 16.1, Release build.
+- Hardware is Windows, Ryzen 5950X, compiler Visual Studio 2022 (17.14), Release build.
 
 ## Takeaways
 
@@ -71,4 +72,5 @@ Notes:
   size by 0.3MB.
 - Tinyexr is smaller, but not _that much_ smaller than OpenEXR. And, again, it does not
   understand some of the compression modes (PXR24, B44, DWA, HTJ2K) and thus can't load
-  some EXR files. Also seems to be about 2x slower than OpenEXR library.
+  some EXR files.
+- Tinyexr seems to be about 4x slower than OpenEXR library :(
